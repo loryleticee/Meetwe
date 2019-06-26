@@ -1,0 +1,14 @@
+version: "3.6"
+
+services:
+    app:
+        volumes:
+            - "~/.composer:/home/app/.composer"
+
+    nginx:
+        ports:
+            - "8081:80"
+
+    db:
+        ports:
+            - "3308:3306"

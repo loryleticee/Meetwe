@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block body %}
+    <script>
+        $(function () {
+            $(".fa-star").on('click',function () {
+
+                let firstTd     = $( this ).parents("tr").find("td:first-child");
+                let iConf       = firstTd.find("#idconf").val();
+                let elem        = $(this).parent();
+                console.log(elem);
+                $.ajax({
+                    method: "POST",
+                    url: "http://127.0.0.1:8082/ajax/setnote",
+                    dataType : 'html',
+                    data: {
+                        note: this.classList[3],
+                        idconf: iConf
+                    },
+                    success: function(response){
+                        let nbrStars = (response-1);
+                        elem.find('i:not(i:gt('+nbrStars+'))').toggleClass('gold');
+                    },
+                    error : function(){
+                        document.write('no');
+                    }
+                });
+            })
+        });
+    </script>
+    <h1>Toutes les conférences</h1>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('conference_new', {slug: 0}) }}">Nouvelle conférence<a/>
+    {% endif %}
+
+
+    {% if message is defined %}
+        <span class="alert-danger"> {% dump(message)%} </span>
+    {% endif %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Publié le</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for conference in conferences %}
+            <tr>
+                <td>
+                    {{ conference.title[:15] }}
+                    <input type="hidden" value="{{ conference.id }}" id="idconf" >
+                </td>
+                <td>{{ conference.publishDate ? conference.publishDate|date('Y-m-d à H:i') : '' }}</td>
+                <td>{{ conference.content ? conference.content[:100] : '' }}</td>
+                <td>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fa fa-star fa-xs one"></i>
+                            <i class="fa fa-star fa-xs two"></i>
+                            <i class="fa fa-star fa-xs three"></i>
+                            <i class="fa fa-star fa-xs four"></i>
+                            <i class="fa fa-star fa-xs five"></i>
+                        </div>
+                        <a href="{{ path('conference_show', {'id': conference.id}) }}">Voir les avis</a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="col-md-2 col-md-offset-5">
+        <ul class="pagination">
+            {% for i in 1..maxPages %}
+                <li class="page-item active">
+                    <a class="page-link" href="{{ path('conference_index', {page: i}) }}">{{ i }}</a>
+                </li>&nbsp;
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

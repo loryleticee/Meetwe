@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Comment{% endblock %}
+
+{% block body %}
+    <h1>Comment</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ comment.id }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ comment.content }}</td>
+            </tr>
+            <tr>
+                <th>Publish_date</th>
+                <td>{{ comment.publishDate ? comment.publishDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

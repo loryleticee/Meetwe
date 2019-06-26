@@ -1,0 +1,21 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+.idea/
+/vendor/
+/var/*
+/var/
+Migrations/*
+###< symfony/framework-bundle ###
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###

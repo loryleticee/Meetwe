@@ -1,0 +1,59 @@
+App\Entity\User:
+  admin:
+    __construct: false
+    username: 'admin'
+    userfirstname: 'admin'
+    roles: '[ROLE_ADMIN]'
+    mail: 'admin@admin.com'
+    password: '\$2y\$13\$9k7QDtyOle8XXLif/4GuseiRWllCVZFCdzdiOb0s42vgQcvf9l/L.'
+    reset_token: '1,2,3,4'
+
+  user:
+    __construct: false
+    username: 'user'
+    userfirstname: 'user'
+    roles: '[ROLE_USER]'
+    mail: 'user@user.com'
+    password: '\$2y\$13\$rTeDuTojdqSqCXXZNXyp9erOYHJjVnuaSQLAkUAIXGaLcmlN8JGaa'
+    reset_token: '1,2,3,4'
+
+
+App\Entity\Conference:
+  conference-{1..15}:
+      __construct: false
+      title (unique): '<text(100)>'
+      content: '<text(400)>'
+      publish_date: "<dateTimeBetween('1 year ago', 'now')>"
+
+App\Entity\Comment:
+  comment{1..20}:
+    __construct: false
+    user_id : '<numberBetween(1, 20)>'
+    #ref_note: '<numberBetween(1, 5)>'
+    conference: "@conference-<numberBetween(1,15)>"
+    content: '<text(400)>'
+    publish_date: "<dateTimeBetween('1 year ago', 'now')>"
+
+App\Entity\RefNote:
+  Refnote-{1}:
+    __construct: false
+    description: 'Pas intéressant'
+
+  Refnote-{2}:
+    __construct: false
+    description: 'Peu attirant'
+
+
+  Refnote-{3}:
+    __construct: false
+    description: 'Assez désirable'
+
+
+  Refnote-{4}:
+    __construct: false
+    description: 'Très attrayant'
+
+
+  Refnote-{5}:
+    __construct: false
+    description: 'Hyper intéressant'

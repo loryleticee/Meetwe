@@ -1,0 +1,27 @@
+# **Bundle installé :**
+
+
+"php" : Pour l'utilisation de PHP -> Tous le projet
+"debril/rss-atom-bundle": Ajout du système de flux RSS -> Article
+"doctrine/doctrine-bundle": Language Doctrine de communication avec la BDD -> Admin / Login / Inscription / Entity..
+"doctrine/doctrine-migrations-bundle": Migration des données applications vers la BDD -> makefile
+"doctrine/orm": Dépendance pour doctrine objet/bdd -> Admin / Login / Inscription / Entity ...
+"easycorp/easyadmin-bundle": Gestion d'une admin pour toutes les entités -> Page /admin
+"sensio/framework-extra-bundle": Gestion des annotations -> Toutes les routes
+"symfony/console": Pour utiliser la console de Symfony
+"symfony/dotenv": Pour parser le fichier .env afin de rendre les variables d'environnement accessible
+"symfony/flex": Gestion des dépendances pour les composants et bundle de symfony -> Tous le projet
+"symfony/form": Créaton et gestion de formulaires -> Inscription / Login / Commentaires
+"symfony/framework-bundle": "Framework
+"symfony/maker-bundle": Création de controllers, entités, formulaires ... par commandes
+"symfony/security-bundle": Gestion des sessions et des Roles utilisateurs -> User Entity
+"symfony/swiftmailer-bundle": Configuration server mails & gestion & envoi des mails ->Connexion ->Mot de passe perdus
+"symfony/twig-bundle": Gestion de la partie front, Affichage des pages -> Dossiers Templates
+"symfony/yaml": Gestion des fichiers yaml par Symfony -> Tous les fçchiers Yaml
+"doctrine/doctrine-fixtures-bundle": Génération de fixtures doctrine
+"escapestudios/symfony2-coding-standard":
+"hautelook/alice-bundle": Gestion des fixtures -> Dossiers fixture
+"nelmio/alice": Génération des fixtures (couplée à alicebundle) -> Dossiers fixture
+"phpstan/phpstan": Vérification du code, Tests
+"symfony/debug-pack": Toolbar avec d'information utile aux dev
+"symfony/web-server-bundle": Lancer un serveur php au lieu d'utiliser celui de Docker

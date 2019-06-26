@@ -1,0 +1,13 @@
+easy_admin:
+    entities:
+#        # List the entity class name you want to manage
+        User:
+            class: App\Entity\User
+            list:
+                fields: ['id', 'username', 'mail', 'roles']
+        Comment:
+            class: App\Entity\Comment
+
+        Article:
+            class: App\Entity\Article
+
