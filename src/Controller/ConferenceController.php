@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Conference;
 use App\Form\ConferenceType;
+use App\Repository\CommentRepository;
 use App\Repository\ConferenceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -175,5 +176,19 @@ class ConferenceController extends AbstractController
         }
 
         return $this->redirectToRoute('conference_index');
+    }
+
+    /**
+     * @Route("/topten/{slug}", name="conference_topten", methods={"GET"})
+     * @param CommentRepository $commentRepository
+     * @return Response
+     */
+    public function topTen(CommentRepository $commentRepository)
+    {
+        $aConf = $commentRepository->getTopTen();
+
+        return $this->render('conference/topten.html.twig', [
+            'toptens' => $aConf,
+        ]);
     }
 }
