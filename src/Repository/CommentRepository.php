@@ -26,4 +26,16 @@ class CommentRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    public function getTopTen()
+    {
+        return $this->createQueryBuilder('g')
+            ->select('(g.conference) AS confid,AVG(g.ref_note) AS moyen, COUNT(g.ref_note) AS nbrvote')
+            ->groupBy('g.conference')
+            ->orderBy('moyen', 'DESC', 'nbrvote', 'DESC')
+            ->setMaxResults('10')
+            ->getQuery()
+            ->getResult();
+
+    }
 }
