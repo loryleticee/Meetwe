@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Top 10 des Conferences{% endblock %}
+
+{% block body %}
+    <h1>Top 10 des Conferences</h1>
+
+    {# <div class="card text-white bg-dark mb-3" style="max-width: 40rem;">
+        <div class="card-header">
+            {% if conference.image is defined %}
+                {% if conference.image != '' %}
+                    <img width='600' heigth='300' src='{{ conference.image }}'>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Description</th>
+                <td>{{ conference.content }}</td>
+            </tr>
+            <tr>
+                <th>Publié le</th>
+                <td>{{ conference.publishDate ? conference.publishDate|date('Y-m-d à H:i') : '' }}</td>
+            </tr>
+        </tbody>
+    </table #}
+    {% if toptens is defined %}
+        {% for topten in toptens %}
+            {% if topten is iterable %}
+                <div class="alert alert-dismissible alert-success sm"><label>{{ topten.confid }}</label> : <br> {{ topten.moyen }} </div>
+            {% endif %}
+        {% else %}
+            <span class="alert-secondary" colspan="5">no topten found</span>
+        {% endfor %}
+    {% endif %}
+    {# <div class="jumbotron">
+        {% if form is defined %}
+            {% if form is iterable %}
+                <div class="form-group">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+                    {{ form_end(form) }}
+                </div>
+            {% else %}
+                <span>Cet conference n'accepte pas les commentaires</span>
+            {% endif %}
+        {% else %}
+            {% if conference.image is defined %}
+                <span>{{ error }}</span>
+            {% endif %}
+        {% endif %} #}
+    </div>
+    <a href="{{ path('conference_index') }}">Retour aux conferences</a>
+
+
+{% endblock %}
