@@ -37,7 +37,7 @@ class Comment
     private $user_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\RefNote")
+     * @ORM\Column(type="integer", length=255)
      */
     private $ref_note;
 
@@ -94,12 +94,12 @@ class Comment
         return $this;
     }
 
-    public function getRefNoteId(): ?RefNote
+    public function getRefNoteId(): ?int
     {
         return $this->ref_note;
     }
 
-    public function setRefNoteId(?RefNote $ref_note): self
+    public function setRefNoteId(?int $ref_note): self
     {
         $this->ref_note = $ref_note;
 

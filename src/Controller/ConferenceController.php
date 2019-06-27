@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Comment;
 use App\Entity\Conference;
 use App\Form\ConferenceType;
@@ -177,10 +176,4 @@ class ConferenceController extends AbstractController
 
         return $this->redirectToRoute('conference_index');
     }
-
-
 }
-
-
-
-

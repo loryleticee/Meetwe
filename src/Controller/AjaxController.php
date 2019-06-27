@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Manager\GameManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-
 use App\Repository\ConferenceRepository;
 
 class AjaxController extends AbstractController
@@ -82,11 +81,15 @@ class AjaxController extends AbstractController
      * @Route("/ajax/setnote", name="ajax_setnote")
      * @param Request $request
      * @param ConferenceRepository $conferenceRepository
-     * @param CommentRepository $commentRepository
+     * @param RefNoteRepository $refNoteRepository
      * @return Response
+     * @throws \Exception
      */
-    public function setNote(Request $request, ConferenceRepository $conferenceRepository, RefNoteRepository $refNoteRepository )
-    {
+    public function setNote(
+        Request $request,
+        ConferenceRepository $conferenceRepository,
+        RefNoteRepository $refNoteRepository
+    ) {
         $sNote          = $request->get('note');
         $iConf          = $request->get('idconf');
 
@@ -98,13 +101,13 @@ class AjaxController extends AbstractController
         $manager        = new GameManager();
         $iNote          = $manager->getNote($sNote);
         $comment        = new Comment();
-        $refNote           =$refNoteRepository->find($iNote);
+        $refNote        = $refNoteRepository->find($iNote);
         $comment->setRefNoteId($refNote);
         $comment->setContent('');
         $comment->setConference($conf);
         $comment->setPublishDate(new \DateTime('now'));
         $comment->setUserId($this->getUser()->getId());
-        $entityManager  = $this->getDoctrine()->getManager();;
+        $entityManager  = $this->getDoctrine()->getManager();
         $entityManager->persist($comment);
         $entityManager->flush();
 

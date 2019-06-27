@@ -25,15 +25,6 @@ App\Entity\Conference:
       content: '<text(400)>'
       publish_date: "<dateTimeBetween('1 year ago', 'now')>"
 
-App\Entity\Comment:
-  comment{1..20}:
-    __construct: false
-    user_id : '<numberBetween(1, 20)>'
-    #ref_note: '<numberBetween(1, 5)>'
-    conference: "@conference-<numberBetween(1,15)>"
-    content: '<text(400)>'
-    publish_date: "<dateTimeBetween('1 year ago', 'now')>"
-
 App\Entity\RefNote:
   Refnote-{1}:
     __construct: false
@@ -57,3 +48,12 @@ App\Entity\RefNote:
   Refnote-{5}:
     __construct: false
     description: 'Hyper intéressant'
+
+App\Entity\Comment:
+  comment{1..20}:
+    __construct: false
+    user_id : '<numberBetween(1, 20)>'
+    ref_note_id: "<numberBetween(1,5)>"
+    conference: "@conference-<numberBetween(1,15)>"
+    content: '<text(400)>'
+    publish_date: "<dateTimeBetween('1 year ago', 'now')>"
