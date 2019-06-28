@@ -22,7 +22,7 @@
 .stars {
     display: inline-flex;
     justify-content: center;
-    font-size: 1em;
+    font-size: 3em;
 }
 
 /**
@@ -41,6 +41,13 @@
     color: gray;
 }
 
+.newConf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+}
 /******************************************************************/
 /* style pour la démo */
 /*

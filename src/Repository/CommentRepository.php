@@ -29,10 +29,13 @@ class CommentRepository extends ServiceEntityRepository
 
     public function getTopTen()
     {
+
         return $this->createQueryBuilder('g')
-            ->select('(g.conference) AS confid,AVG(g.ref_note) AS moyen, COUNT(g.ref_note) AS nbrvote')
+            ->select('(g.conference) AS confid, c.title , c.content, AVG(g.ref_note) AS moyen, COUNT(g.ref_note) AS nbrvote')
+            ->leftJoin('g.conference','c')
             ->groupBy('g.conference')
-            ->orderBy('moyen', 'DESC', 'nbrvote', 'DESC')
+            ->orderBy('moyen ', 'DESC')
+            ->orderBy('nbrvote', 'DESC')
             ->setMaxResults('10')
             ->getQuery()
             ->getResult();
