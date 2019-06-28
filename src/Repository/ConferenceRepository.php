@@ -75,17 +75,19 @@ class ConferenceRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @param string|null $sParam
+     * @return mixed
+     */
     public function search(?string $sParam)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.title LIKE  :val')
-            ->setParameter('val', '%'.$sParam.'%')
-            ->orderBy('a.id', 'ASC')
-            ->getQuery()
-            ->getResult()
-    ;
-   }
-
+        ->andWhere('a.title LIKE  :val')
+        ->setParameter('val', '%'.$sParam.'%')
+        ->orderBy('a.id', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
     // /**
     //  * @return Conference[] Returns an array of Conference objects
     //  */

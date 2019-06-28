@@ -15,29 +15,6 @@ use App\Repository\ConferenceRepository;
 class AjaxController extends AbstractController
 {
     /**
-     * @Route("/ajax/active", name="ajax_active")
-     * @param ConferenceRepository $articleRepository
-     * @param Request $request
-     * @return Response
-     */
-    public function active(ConferenceRepository $articleRepository, Request $request) : Response
-    {
-        $id         = $request->get('idarticle');
-        if (!$id) {
-            return new Response('No conference found', 300);
-        }
-        $article    = $articleRepository->find($id);
-
-        $isCensored = $article->getCensored();
-        $article->setCensored($isCensored === false ? true : false);
-        $entityManager  = $this->getDoctrine()->getManager();
-        $entityManager->persist($article);
-        $entityManager->flush();
-
-        return new Response("$isCensored");
-    }
-
-    /**
      * @Route("/ajax/mail", name="ajax_mail")
      * @param \Swift_Mailer $mailer
      * @return Response

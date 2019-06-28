@@ -26,4 +26,20 @@ class CommentController extends AbstractController
             'comment'  => $comment,
         ]);
     }
+
+    /**
+     * @Route("/norated/{slug}", name="conference_norated")
+     * @param CommentRepository $commentRepository
+     * @return Response
+     */
+    public function getNotRate(CommentRepository $commentRepository)
+    {
+        $list           = $commentRepository->notRated();
+
+        $maxPages = ceil(1);
+        return $this->render('conference/search.html.twig', [
+            'conferences' => $list,
+            'maxPages' => $maxPages
+        ]);
+    }
 }
