@@ -42,21 +42,4 @@ class CommentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-    public function notRated()
-    {
-        $qb     = $this->_em->createQueryBuilder();
-        $qb2    = $this->_em->createQueryBuilder();
-
-        $sub    = $qb2->select('c.conference')
-            ->from($this->_entityName, 'c');
-
-
-        $query  = $qb->select('a')
-            ->from(Conference::class, 'a')
-            ->where($qb->expr()->notIn('a.id', $sub->getDQL()))
-            ->getQuery()->execute();
-//dump($query);exit;
-        return $query;
-    }
 }

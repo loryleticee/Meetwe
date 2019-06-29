@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use App\Repository\ConferenceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,12 +31,24 @@ class CommentController extends AbstractController
     /**
      * @Route("/norated/{slug}", name="conference_norated")
      * @param CommentRepository $commentRepository
+     * @param ConferenceRepository $conferenceRepository
      * @return Response
      */
-    public function getNotRate(CommentRepository $commentRepository)
+    public function getNotRate(CommentRepository $commentRepository, ConferenceRepository $conferenceRepository)
     {
-        $list           = $commentRepository->notRated();
+        $aCom           = $commentRepository->findAll();
+        $aConf          = $conferenceRepository->findAll();
+        $e = [];
+        $r = [];
+        foreach ($aConf as $item){
+            $e[] = $item->getId();
+        }
+        foreach ($aCom as $item){
+            $r[] = $item->getRefNoteId();
+        }
 
+        $f = array_unique(array_merge($e,$r));
+        dump($f);exit;
         $maxPages = ceil(1);
         return $this->render('conference/search.html.twig', [
             'conferences' => $list,
