@@ -113,11 +113,13 @@ class ConferenceController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", name="conference_tui", methods={"DELETE"})
      * @param Request $request
      * @param Conference $conference
+     * @param CommentRepository $commentRepository
      * @return Response
      */
-    public function delete(Request $request, Conference $conference): Response
+    public function delete(Request $request, Conference $conference, CommentRepository $commentRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$conference->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

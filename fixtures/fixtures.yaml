@@ -21,7 +21,7 @@ App\Entity\User:
 App\Entity\Conference:
   conference-{1..15}:
       __construct: false
-      title (unique): '<text(100)>'
+      title (unique): '<text(50)>'
       content: '<text(400)>'
       publish_date: "<dateTimeBetween('1 year ago', 'now')>"
 

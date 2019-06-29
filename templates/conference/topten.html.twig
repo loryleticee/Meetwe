@@ -3,66 +3,28 @@
 {% block title %}Top 10 des Conferences{% endblock %}
 
 {% block body %}
-    <h1>Top 10 des Conferences</h1>
+    <div class="notif jumbotron jumbotron-fluid">
+        <h1>Top 10 des Conferences</h1>
+    </div>
+    <div class="jumbotron">
 
-    {# <div class="card text-white bg-dark mb-3" style="max-width: 40rem;">
-        <div class="card-header">
-            {% if conference.image is defined %}
-                {% if conference.image != '' %}
-                    <img width='600' heigth='300' src='{{ conference.image }}'>
+        <div class="container">
+            <ul class="list-group">
+                {% if toptens is defined %}
+                    {% for topten in toptens %}
+                        {% if topten is iterable %}
+                            <a href="{{ path('conference_show', { id:topten.confid }) }}">
+                                <li class="list-group-item d-flex justify-content-between align-items-center page-blank ">
+                                    {{ topten.title }}
+                                    <span class="badge badge-primary badge-pill bg-success"><elem class="badge-light">{{ topten.nbrvote }} <i class="fas fa-quote-right fa-xs "></i></elem> &nbsp;&nbsp; {{ topten.moyen }}<i class="fas fa-star fa-xs"></i></span>
+                                </li>
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <span class="alert-secondary" colspan="5">no conferences found</span>
+                    {% endfor %}
                 {% endif %}
-            {% endif %}
-        </div>
+            </ul>
+        <a href="{{ path('conference_index') }}">Retour aux conferences</a>
     </div>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Description</th>
-                <td>{{ conference.content }}</td>
-            </tr>
-            <tr>
-                <th>Publié le</th>
-                <td>{{ conference.publishDate ? conference.publishDate|date('Y-m-d à H:i') : '' }}</td>
-            </tr>
-        </tbody>
-    </table #}
-    <div class="container">
-        <ul class="list-group">
-            {% if toptens is defined %}
-                {% for topten in toptens %}
-                    {% if topten is iterable %}
-                        <a href="{{ path('conference_show', { id:topten.confid }) }}">
-                            <li class="list-group-item d-flex justify-content-between align-items-center page-link ">
-                                {{ topten.title }}
-                                <span class="badge badge-primary badge-pill bg-success"><elem class="badge-light">{{ topten.nbrvote }} <i class="fas fa-quote-right fa-xs "></i></elem> &nbsp;&nbsp; {{ topten.moyen }}</span>
-                            </li>
-                        </a>
-                    {% endif %}
-                {% else %}
-                    <span class="alert-secondary" colspan="5">no conferences found</span>
-                {% endfor %}
-            {% endif %}
-        </ul>
-    </div>
-    {# <div class="jumbotron">
-        {% if form is defined %}
-            {% if form is iterable %}
-                <div class="form-group">
-                    {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
-                    {{ form_end(form) }}
-                </div>
-            {% else %}
-                <span>Cet conference n'accepte pas les commentaires</span>
-            {% endif %}
-        {% else %}
-            {% if conference.image is defined %}
-                <span>{{ error }}</span>
-            {% endif %}
-        {% endif %} #}
-    </div>
-    <a href="{{ path('conference_index') }}">Retour aux conferences</a>
-
-
 {% endblock %}

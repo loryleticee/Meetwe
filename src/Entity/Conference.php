@@ -34,7 +34,7 @@ class Conference
     private $publish_date;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="conference")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment" , mappedBy="conference" , orphanRemoval=true))
      */
     private $comments;
 

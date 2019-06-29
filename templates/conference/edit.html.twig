@@ -3,11 +3,13 @@
 {% block title %}Edit Conference{% endblock %}
 
 {% block body %}
-    <h1>Edit Conference</h1>
+    <div class="container">
+        <h1>Edit Conference</h1>
 
-    {{ include('conference/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('conference/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('conference_index') }}">back to list</a>
+        <a href="{{ path('conference_index') }}">back to list</a>
 
-    {{ include('conference/_delete_form.html.twig') }}
+        {{ include('conference/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

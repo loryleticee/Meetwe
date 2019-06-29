@@ -3,9 +3,14 @@
 {% block title %}New Conference{% endblock %}
 
 {% block body %}
+<div class="notif jumbotron jumbotron-fluid">
+
+</div>
+<div class="container">
     <h1>Create new Conference</h1>
 
     {{ include('conference/_form.html.twig') }}
 
     <a href="{{ path('conference_index') }}">back to list</a>
+</div>
 {% endblock %}

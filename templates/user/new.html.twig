@@ -3,9 +3,14 @@
 {% block title %}New User{% endblock %}
 
 {% block body %}
-    <h1>Create new User</h1>
+<div class="notif jumbotron jumbotron-fluid">
+
+</div>
+<div class="container">
+    <h1>Creation d'un nouvel utilisateur</h1>
 
     {{ include('user/_form.html.twig') }}
 
-    <a href="{{ path('user_index') }}">back to list</a>
+    <a href="{{ path('user_index') }}">Retourner à la liste d'utilisateur</a>
+</div>
 {% endblock %}
