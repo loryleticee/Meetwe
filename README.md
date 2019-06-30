@@ -10,6 +10,11 @@ username : admin
 
 password : admin
 
+http://127.0.0.1:8082     index 
+
+http://127.0.0.1:8083     BDD adminer
+
+http://127.0.0.1:8025     Mailhog
 
 Back-office
 L’administrateur peut gérer les conférences ✅
