@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Repository\CommentRepository;
-use App\Repository\RefNoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Manager\GameManager;
@@ -14,32 +12,6 @@ use App\Repository\ConferenceRepository;
 
 class AjaxController extends AbstractController
 {
-    /**
-     * @Route("/ajax/mail", name="ajax_mail")
-     * @param \Swift_Mailer $mailer
-     * @return Response
-     */
-    public function sendMAil(\Swift_Mailer $mailer)
-    {
-        $message = (new \Swift_Message('Hello Email'))
-            ->setFrom('loryleticee@gmail.com')
-            ->setSubject('Votre dernier pari')
-            ->setTo('loryleticee@gmail.com')
-            ->setBody(
-                $this->renderView(
-                    'ajax/mail.html.twig',
-                    ['name' => 'rvtveveveve']
-                ),
-                'text/plain'
-            )
-            //->addPart('', 'text/html')
-        ;
-        $mailer->send($message);
-
-        return $this->render('game/play.html.twig', [
-        ]);
-    }
-
     /**
      * @Route("/ajax/result", name="ajax_result")
      * @param Request $request

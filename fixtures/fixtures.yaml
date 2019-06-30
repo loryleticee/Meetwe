@@ -24,6 +24,7 @@ App\Entity\Conference:
       title (unique): '<text(50)>'
       content: '<text(400)>'
       publish_date: "<dateTimeBetween('1 year ago', 'now')>"
+      meeting_date: "<dateTimeBetween('1 year ago', 'now')>"
 
 App\Entity\RefNote:
   Refnote-{1}:

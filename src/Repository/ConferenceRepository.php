@@ -26,19 +26,6 @@ class ConferenceRepository extends ServiceEntityRepository
      */
     public function orderConference(int $currentPage = 1)
     {
-         return $this->createQueryBuilder('a')
-            ->orderBy('a.publish_date', 'DESC')
-            ->andWhere('a.publish_date <= :val')
-            ->setParameter('val', new \DateTime('now'))
-            ->getQuery()
-            ->setMaxResults(10)
-            ->setFirstResult(($currentPage-1) * 10)
-            ->getResult()
-            ;
-    }
-
-    public function orderConferenceAdmin(int $currentPage = 1)
-    {
         return $this->createQueryBuilder('a')
             ->orderBy('a.publish_date', 'DESC')
             ->getQuery()
@@ -53,20 +40,6 @@ class ConferenceRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function nbrConference()
-    {
-        return $this->createQueryBuilder('a')
-            ->select('count(a.id)')
-            ->andWhere('a.publish_date <= :val')
-            ->setParameter('val', new \DateTime('now'))
-            ->getQuery()
-            ->getSingleScalarResult()
-            ;
-    }
-    /**
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function nbrConferenceAdmin()
     {
         return $this->createQueryBuilder('a')
             ->select('count(a.id)')
@@ -88,6 +61,8 @@ class ConferenceRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+
+
     // /**
     //  * @return Conference[] Returns an array of Conference objects
     //  */

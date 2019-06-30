@@ -3,6 +3,40 @@
 {% block title %}{{ conference.title }}{% endblock %}
 
 {% block body %}
+    <script>
+        $(function () {
+            $("#note").hide();
+            let textRate = "<div class='alert alert-dismissible alert-success'>\n" +
+                "  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n" +
+                "  <h4 class='alert-heading'><i class=\"far fa-smile-wink\"></i></h4>\n" +
+                "  <p class='mb-0'><a href='/register' class='alert-link'>Merci d'avoir participez, votre vote à bien été pris en compte ,vous pouvez laissez un commentaire</p>\n" +
+                "</div>";
+            $(".fa-star").on('click',function () {
+                let elem        = $(this).parent();
+                elem.find('i:not(i:gt('+rate(this.classList[3])+'))').toggleClass('gold');
+
+                $('.rate').val(rate(this.classList[3])+1);
+
+                $("#note").show();
+                $(this).click(false);
+
+                $('.notif').html(textRate);
+
+                $('.form-control').focus();
+            });
+
+            function rate(note) {
+                var aRefs          = new Array()
+                    aRefs['one']       = 1;
+                    aRefs['two']       = 2;
+                    aRefs['three']     = 3;
+                    aRefs['four']      = 4;
+                    aRefs['five']      = 5;
+
+                return  aRefs[note]-1;
+            }
+        });
+    </script>
     <div class="notif jumbotron jumbotron-fluid">
 
     </div>
@@ -28,40 +62,44 @@
                 <th>Publié le</th>
                 <td>{{ conference.publishDate ? conference.publishDate|date('Y-m-d à H:i') : '' }}</td>
             </tr>
+            <div class="row flex-row">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('conference_edit', {'id': conference.id}) }}"><button class="btn btn-md btn-info">edit</button></a>
+                    {{ include('conference/_delete_form.html.twig') }}
+                {% endif %}
+                <a href="{{ path('conference_index') }}"><button class="btn btn-md btn-light">Retour aux conferences</button></a>
+            </div>
             </tbody>
         </table>
+        <div class="rating alert alert-dismissible alert-info">
+            <span class="badge badge-pill badge-warning text-center">Voter</span>
+            <div class="stars">
+                <i class="fa fa-star fa-xs one"></i>
+                <i class="fa fa-star fa-xs two"></i>
+                <i class="fa fa-star fa-xs three"></i>
+                <i class="fa fa-star fa-xs four"></i>
+                <i class="fa fa-star fa-xs five"></i>
+            </div>
+            <i class="fas fa-star-half-alt gold fa-3x"></i>{{ avg }}
+        </div>
+        <div id="note">
+            <form class="form-inline" method="POST" action="{{ path('conference_comment') }}">
+                <input  type="hidden" name="idConf" value="{{ conference.id }}">
+                <input  class="rate" type="hidden" name="rate">
+                <input class="form-control" type="text" size="50" name="text" placeholder="Laissez un commentaire">
+                <button type="submit" class="btn btn-md btn-primary">Commenter</button>
+            </form>
+        </div>
         {% if comments is defined %}
             {% for comment in comments %}
-                {% if comment is iterable %}
-                    <div class="alert alert-dismissible alert-success sm"><label>{{ comment.username }}</label> : <br> {{ comment.content }} </div>
-                    <p>Publiée le {{ comment.publishDate ? conference.publishDate|date('Y-m-d à H:i') : ''}}</p>
-                {% endif %}
+                <div class="alert alert-dismissible alert-success sm">
+                    {# <label>{{ comment.userId }}</label> : <br> #} {{ comment.content }}
+                    <p class="text-secondary">Commentée le {{ comment.publishDate|date('Y-m-d à H:i') }}</p>
+                    <p class="d-flex flex-row-reverse"><i class="fas fa-star fa-xs"></i> Note attribué {{ comment.refNoteId }}</p>
+                </div>
             {% else %}
                 <span class="alert-secondary" colspan="5">no comment found</span>
             {% endfor %}
         {% endif %}
-        <div class="jumbotron">
-            {% if form is defined %}
-                {% if form is iterable %}
-                    <div class="form-group">
-                        {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
-                        {{ form_end(form) }}
-                    </div>
-                {% else %}
-                    <span>Cet conference n'accepte pas les commentaires</span>
-                {% endif %}
-            {% else %}
-                {% if conference.image is defined %}
-                    <span>{{ error }}</span>
-                {% endif %}
-            {% endif %}
-        </div>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('conference_edit', {'id': conference.id}) }}">edit</a>
-            {{ include('conference/_delete_form.html.twig') }}
-        {% endif %}
-        <a href="{{ path('conference_index') }}">Retour aux conferences</a>
     </div>
 {% endblock %}
