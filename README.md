@@ -1,5 +1,16 @@
 # meetwe
 
+Il n'y a pas d'interface propre à l'admin . 
+L'administrateur est un utilisateur qui détient le role ['ADMIN'] .
+
+
+Identifiant administrateur 
+
+username : admin
+
+password : admin
+
+
 Back-office
 L’administrateur peut gérer les conférences ✅
 
