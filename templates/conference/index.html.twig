@@ -6,7 +6,6 @@
     {% if app.user %}
         <script>
             $(function () {
-
                 let textRate = "<div class='alert alert-dismissible alert-info'>\n" +
                     "  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n" +
                     "  <h4 class='alert-heading'><i class=\"far fa-smile-wink\"></i></h4>\n" +
@@ -39,12 +38,24 @@
                         success: function(response){
                             let nbrStars = (response-1);
                             elem.find('i:not(i:gt('+nbrStars+'))').toggleClass('gold');
+                            //elem.parent().append("<div id='comment'><input class='form-control ' placeholder='Laissez un commentaire' type='text'></div>")
                         },
                         error : function(){
                             $('.notif').html(textNoRate);
                         }
                     });
-                })
+                });
+
+                /*
+                $( "#comment" ).on('hover',function(event) {
+                    console.log($(this).parent());
+
+                    if (event.keyCode === 13) {
+                        event.preventDefault();
+                        console.log($(this).parent());
+                    }
+                });*/
+
             });
         </script>
     {% else %}
@@ -59,14 +70,11 @@
                 $(".fa-star").on('click',function () {
                     $('.notif').html(text);
                 });
-
-                $('.close').on('click',function () {
-                    alert();
-                });
             });
         </script>
     {% endif %}
     <div class="notif jumbotron jumbotron-fluid">
+
 
     </div>
     <div class="container ">
@@ -92,8 +100,9 @@
             <thead>
                 <tr>
                     <th class="text-secondary">Titre</th>
-                    <th class="text-secondary"> Publié le</th>
+                    <th class="text-secondary">Sera présentée le </th>
                     <th class="text-secondary">Description</th>
+                    <th class="text-secondary">Note</th>
                 </tr>
             </thead>
             <tbody>
@@ -103,7 +112,7 @@
                         {{ conference.title[:15] }}
                         <input type="hidden" value="{{ conference.id }}" id="idconf" >
                     </td>
-                    <td>{{ conference.publishDate ? conference.publishDate|date('Y-m-d à H:i') : '' }}</td>
+                    <td>{{ conference.meetingDate |date('Y-m-d à H:i') }}</td>
                     <td><a href="{{ path('conference_show', {'id': conference.id}) }}">{{ conference.content ? conference.content[:100] : '' }}</a></td>
                     <td>
                         <div class="rating">

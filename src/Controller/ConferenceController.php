@@ -6,6 +6,7 @@ use App\Entity\Conference;
 use App\Form\ConferenceType;
 use App\Repository\CommentRepository;
 use App\Repository\ConferenceRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,18 +27,10 @@ class ConferenceController extends AbstractController
     public function index(Request $request, ConferenceRepository $conferenceRepository): Response
     {
         $page = $request->query->get('page') ?: 1;
-        if ($this->getUser()) {
-            $isAdmin = in_array('ROLE_ADMIN', $this->getUser()->getRoles());
-        } else {
-            $isAdmin = false;
-        }
-        $conferences = $isAdmin === true ?
-            $conferenceRepository->orderconferenceAdmin($page) :
-            $conferenceRepository->orderconference($page);
 
-        $totalPosts = $isAdmin === true ?
-            $conferenceRepository->nbrconferenceAdmin() :
-            $conferenceRepository->nbrconference();
+        $conferences    = $conferenceRepository->orderconference($page);
+
+        $totalPosts     = $conferenceRepository->nbrconference();
 
         $maxPages = ceil($totalPosts / 10);
 
@@ -51,22 +44,29 @@ class ConferenceController extends AbstractController
     /**
      * @Route("/{id}", name="conference_show", methods={"GET"})
      * @param Conference $conference
+     * @param CommentRepository $commentRepository
      * @return Response
      */
-    public function show(Conference $conference): Response
+    public function show(Conference $conference, CommentRepository $commentRepository): Response
     {
-        $comments = $conference->getComments();
+        $comments   = $commentRepository->getComments($conference->getId());
+        $iAvg       = $commentRepository->getAvg($conference->getId());
+
         return $this->render('conference/show.html.twig', [
-            'conference' => $conference,
-            'comments'=> $comments,
+            'conference'    => $conference,
+            'comments'      => $comments,
+            'avg'           => $iAvg,
         ]);
     }
     /**
      * @Route("/new/{slug}", name="conference_new", methods={"GET","POST"})
      * @param Request $request
+     * @param \Swift_Mailer $mailer
+     * @param UserRepository $userRepository
      * @return Response
+     * @throws \Exception
      */
-    public function new(Request $request): Response
+    public function new(Request $request, \Swift_Mailer $mailer, UserRepository $userRepository): Response
     {
         /** @var Conference $conference */
         $conference = new Conference();
@@ -75,8 +75,32 @@ class ConferenceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $conference->setPublishDate(new \DateTime());
             $entityManager->persist($conference);
             $entityManager->flush();
+
+            $aMails     = [];
+            $aUsersMail = $userRepository->getMails();
+
+            foreach ($aUsersMail as $aMail) {
+                $aMails[]   = $aMail['mail'];
+            }
+
+
+            $message = (new \Swift_Message('Hello Email'))
+                ->setFrom('loryleticee@gmail.com')
+                ->setSubject('Découvrez notre prochaine conférence')
+                ->setTo($aMails)
+                ->setBody(
+                    $this->renderView(
+                        'send_mail/mail.html.twig',
+                        [
+                            'conference' => $conference
+                        ]
+                    ),
+                    'text/html'
+                );
+            $mailer->send($message);
 
             return $this->redirectToRoute('conference_index');
         }

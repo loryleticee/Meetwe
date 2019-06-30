@@ -1,5 +1,5 @@
 <form method="post" action="{{ path('conference_tui', {'id':conference.id }) }}" onsubmit="return confirm('Êtes vous sur de vouloir supprimer cette conference?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ conference.id) }}">
-    <button class="btn">Delete</button>
+    <button class="btn btn-md btn-danger">Delete</button>
 </form>

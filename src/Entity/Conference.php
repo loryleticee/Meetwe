@@ -34,6 +34,11 @@ class Conference
     private $publish_date;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $meeting_date;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment" , mappedBy="conference" , orphanRemoval=true))
      */
     private $comments;
@@ -85,6 +90,22 @@ class Conference
     public function setPublishDate(\DateTimeInterface $publish_date): self
     {
         $this->publish_date = $publish_date;
+
+        return $this;
+    }
+
+    public function getMeetingDate(): ?\DateTimeInterface
+    {
+        return $this->meeting_date;
+    }
+
+    /**
+     * @param \DateTimeInterface $meeting_date
+     * @return Conference
+     */
+    public function setMeetingDate(\DateTimeInterface $meeting_date): self
+    {
+        $this->meeting_date = $meeting_date;
 
         return $this;
     }

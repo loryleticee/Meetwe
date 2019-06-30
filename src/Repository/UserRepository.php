@@ -22,15 +22,17 @@ class UserRepository extends ServiceEntityRepository
     /**
      * @return mixed
      */
-    public function nextPlayers()
+    public function getMails()
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.next_bet is not null')
-            ->orderBy('u.username', 'ASC')
+            ->select('u.mail')
+            ->orderBy('u.mail', 'ASC')
             ->getQuery()
-            ->getResult()
+            ->getScalarResult()
             ;
     }
+
+
 
     // /**
     //  * @return User[] Returns an array of User objects
