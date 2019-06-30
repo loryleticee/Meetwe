@@ -1,7 +1,7 @@
 # meetwe
 
 Back-office
-L’administrateur peut gérer les conférences ✅ \n
+L’administrateur peut gérer les conférences ✅
 L’administrateur peut voir le top 10 des conférences ✅
 L’administrateur peut gérer les utilisateurs ✅
 Envoi d’emails aux membres à la création d’une nouvelle conférence ✅
