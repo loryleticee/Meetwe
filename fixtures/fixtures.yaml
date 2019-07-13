@@ -25,6 +25,7 @@ App\Entity\Conference:
       content: '<text(400)>'
       publish_date: "<dateTimeBetween('1 year ago', 'now')>"
       meeting_date: "<dateTimeBetween('1 year ago', 'now')>"
+      image: "https://via.placeholder.com/300/09f/fff.png"
 
 App\Entity\RefNote:
   Refnote-{1}:

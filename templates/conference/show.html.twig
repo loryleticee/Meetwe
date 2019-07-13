@@ -11,7 +11,7 @@
                 "  <h4 class='alert-heading'><i class=\"far fa-smile-wink\"></i></h4>\n" +
                 "  <p class='mb-0'><a href='/register' class='alert-link'>Merci d'avoir participez, votre vote à bien été pris en compte ,vous pouvez laissez un commentaire</p>\n" +
                 "</div>";
-            $(".fa-star").on('click',function () {
+            $(".stars > .fa-star").on('click',function () {
                 let elem        = $(this).parent();
                 elem.find('i:not(i:gt('+rate(this.classList[3])+'))').toggleClass('gold');
 
@@ -43,15 +43,15 @@
     <div class="container">
         <h1>{{ conference.title }}</h1>
 
-        <!--<div class="card text-white bg-dark mb-3" style="max-width: 40rem;">
+        <div class="card text-white bg-dark mb-3" style="max-width: 40rem;">
             <div class="card-header">
                 {% if conference.image is defined %}
                     {% if conference.image != '' %}
-                        <img width='600' heigth='300' src='{{ conference.image }}'>
+                        <img width='300' heigth='300' src='{{ conference.image }}'>
                     {% endif %}
                 {% endif %}
             </div>
-        </div>-->
+        </div>
         <table class="table">
             <tbody>
             <tr>
@@ -62,12 +62,14 @@
                 <th>Publié le</th>
                 <td>{{ conference.publishDate ? conference.publishDate|date('Y-m-d à H:i') : '' }}</td>
             </tr>
-            <div class="row flex-row">
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('conference_edit', {'id': conference.id}) }}"><button class="btn btn-md btn-info">edit</button></a>
-                    {{ include('conference/_delete_form.html.twig') }}
-                {% endif %}
-                <a href="{{ path('conference_index') }}"><button class="btn btn-md btn-light">Retour aux conferences</button></a>
+            <div class="container">
+                <div class="row flex-row">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('conference_edit', {'id': conference.id}) }}"><button class="btn btn-md btn-info">edit</button></a>
+                        {{ include('conference/_delete_form.html.twig') }}
+                    {% endif %}
+                    <a href="{{ path('conference_index') }}"><button class="btn btn-md btn-light">Retour aux conferences</button></a>
+                </div>
             </div>
             </tbody>
         </table>

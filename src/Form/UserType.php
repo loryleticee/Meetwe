@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -24,6 +25,12 @@ class UserType extends AbstractType
                 'second_options' => array('label' => 'Repeat Password'),
             ))
             ->add('mail', EmailType::class)
+            ->add('roles', ChoiceType::class, [
+                'choices'  => [
+                    'Utilisateur'   => 'ROLE_USER' ,
+                    'Admin'         => 'ROLE_ADMIN',
+                ]
+            ])
         ;
     }
 
