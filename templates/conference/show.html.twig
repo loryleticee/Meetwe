@@ -6,11 +6,13 @@
     <script>
         $(function () {
             $("#note").hide();
+
             let textRate = "<div class='alert alert-dismissible alert-success'>\n" +
                 "  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n" +
                 "  <h4 class='alert-heading'><i class=\"far fa-smile-wink\"></i></h4>\n" +
-                "  <p class='mb-0'><a href='/register' class='alert-link'>Merci d'avoir participez, votre vote à bien été pris en compte ,vous pouvez laissez un commentaire</p>\n" +
+                "  <p class='mb-0'>Merci d'avoir participez, votre vote à bien été pris en compte ,vous pouvez laissez un commentaire</p>\n" +
                 "</div>";
+
             $(".stars > .fa-star").on('click',function () {
                 let elem        = $(this).parent();
                 elem.find('i:not(i:gt('+rate(this.classList[3])+'))').toggleClass('gold');
